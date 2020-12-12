@@ -11,6 +11,11 @@
     <OutputPath>.</OutputPath>
     <Name>LinearRegressionTools</Name>
     <RootNamespace>LinearRegressionTools</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterArguments>
+    </InterpreterArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <CommandLineArguments>C:\Users\Chris\Desktop\LinearRegressionTools\data.csv</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
