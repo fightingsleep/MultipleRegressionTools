@@ -1,8 +1,8 @@
 import argparse
+from collections import OrderedDict
 import pandas
 import matplotlib.pyplot as plt
 from sklearn import linear_model
-from collections import OrderedDict
 
 class RegressionOrchestrator:
     def __init__(self, df):
@@ -15,12 +15,13 @@ class RegressionOrchestrator:
         dependent_var_values = self.data_frame[self.data_frame.columns[0]]
 
         # Perform regression
-        regression_output = self.linear_regression.fit(independent_vars_values, dependent_var_values)
+        regression_output = self.linear_regression.fit(
+            independent_vars_values, dependent_var_values)
 
         # Set the model parameters
         self.model_params['Intercept'] = regression_output.intercept_
-        for x in range(1, self.data_frame.shape[1]):
-            self.model_params[self.data_frame.columns[x]] = regression_output.coef_[x - 1]
+        for i in range(1, self.data_frame.shape[1]):
+            self.model_params[self.data_frame.columns[i]] = regression_output.coef_[i - 1]
 
     def make_prediction(self, independent_vars_values):
         return self.linear_regression.predict([independent_vars_values])
