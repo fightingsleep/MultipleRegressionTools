@@ -2,7 +2,6 @@ import argparse
 from collections import OrderedDict
 import pandas
 import matplotlib.pyplot as plt
-import numpy as np
 from sklearn import linear_model
 
 class RegressionOrchestrator:

@@ -1,3 +1,4 @@
+-andas==1.1.4
 cycler==0.10.0
 joblib==0.17.0
 kiwisolver==1.3.1
