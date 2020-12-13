@@ -15,8 +15,11 @@
     <InterpreterArguments>
     </InterpreterArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
-    <CommandLineArguments>C:\Users\Chris\Desktop\LinearRegressionTools\data.csv</CommandLineArguments>
+    <CommandLineArguments>..\data.csv</CommandLineArguments>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>unittest</TestFramework>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="linear_regression_tools.py" />
+    <Compile Include="test_linear_regression.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

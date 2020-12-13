@@ -2,15 +2,19 @@ import argparse
 from collections import OrderedDict
 import pandas
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn import linear_model
 
 class RegressionOrchestrator:
-    def __init__(self, df):
-        self.data_frame = df
+    def __init__(self):
+        self.data_frame = None
         self.linear_regression = linear_model.LinearRegression()
         self.model_params = OrderedDict()
 
-    def initialize_model(self):
+    def initialize_model(self, path):
+        # Parse the csv file containing the regression data
+        self.data_frame = pandas.read_csv(path).dropna()
+
         independent_vars_values = self.data_frame[self.data_frame.columns[1:]]
         dependent_var_values = self.data_frame[self.data_frame.columns[0]]
 
@@ -26,6 +30,16 @@ class RegressionOrchestrator:
     def make_prediction(self, independent_vars_values):
         return self.linear_regression.predict([independent_vars_values])
 
+    def get_model_parameters_string(self):
+        output_string = 'Model parameters:\n'
+        for key in self.model_params:
+            output_string += "  {0} : {1}\n".format(key, self.model_params[key])
+        return output_string
+
+class RegressionInputAnalyzer:
+    def __init__(self, path):
+        self.data_frame = pandas.read_csv(path).dropna()
+
     def visualize_linearity(self):
         num_independent_vars = self.data_frame.shape[1]
         dependent_var_name = self.data_frame.columns[0]
@@ -37,8 +51,11 @@ class RegressionOrchestrator:
             plt.ylabel(dependent_var_name)
             plt.show()
 
-    def get_model_parameters(self):
-        return self.model_params
+    def calculate_statistics(self, variable_name, filter_string = None):
+        df = self.data_frame
+        if filter_string is not None:
+            df = df.query(filter_string)
+        return df[variable_name].describe()
 
 def main():
     # Parse command line args
@@ -48,22 +65,25 @@ def main():
     parser.add_argument('-v', action='store_true', help='visualize the data')
     args = parser.parse_args()
 
-    # Parse the csv file containing the regression data
-    data_frame = pandas.read_csv(args.input).dropna()
-
-    # Initialize the statistical model from the input data
-    regression = RegressionOrchestrator(data_frame)
-    regression.initialize_model()
-
     # Optionally display graphs showing relationships between the
     # independent variables and the dependent variable
     if args.v:
-        regression.visualize_linearity()
+        input_analyzer = RegressionInputAnalyzer(args.input)
+        input_analyzer.visualize_linearity()
+
+    # Initialize the statistical model from the input data
+    regression = RegressionOrchestrator()
+    regression.initialize_model(args.input)
+    print(regression.get_model_parameters_string())
 
     # Allow the user to make a prediction using the model
-    print(regression.make_prediction([1,1,1,1,1,1,1,1]))
-
-    print(regression.get_model_parameters())
+    while True:
+        try:
+            independent_vars = [float(x) for x in input(
+                "Enter independent variable values (ex: 1 1 1 1 1 1 1 1): ").split()]
+            print(regression.make_prediction(independent_vars))
+        except:
+            print("invalid input")
 
 if __name__ == "__main__":
     main()
