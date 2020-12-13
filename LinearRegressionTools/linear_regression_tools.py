@@ -80,7 +80,7 @@ def main():
         try:
             independent_vars = [float(x) for x in input(
                 "Enter independent variable values (ex: 1 1 1 1 1 1 1 1): ").split()]
-            print(regression.make_prediction(independent_vars))
+            print("Predicted price: ", regression.make_prediction(independent_vars))
         except:
             print("invalid input")
 
