@@ -10,7 +10,7 @@ class RegressionOrchestrator:
         self.linear_regression = linear_model.LinearRegression()
         self.model_params = OrderedDict()
 
-    def initialize_model(self, path):
+    def initialize_model(self, path: str) -> None:
         # Parse the csv file containing the regression data
         self.data_frame = pandas.read_csv(path).dropna()
 
@@ -26,20 +26,20 @@ class RegressionOrchestrator:
         for i in range(1, self.data_frame.shape[1]):
             self.model_params[self.data_frame.columns[i]] = regression_output.coef_[i - 1]
 
-    def make_prediction(self, independent_vars_values):
-        return self.linear_regression.predict([independent_vars_values])
+    def make_prediction(self, independent_vars_values: list) -> list:
+        return self.linear_regression.predict(independent_vars_values)
 
-    def get_model_parameters_string(self):
+    def get_model_parameters_string(self) -> str:
         output_string = 'Model parameters:\n'
         for key in self.model_params:
             output_string += "  {0} : {1}\n".format(key, self.model_params[key])
         return output_string
 
 class RegressionInputAnalyzer:
-    def __init__(self, path):
+    def __init__(self, path: str):
         self.data_frame = pandas.read_csv(path).dropna()
 
-    def visualize_linearity(self):
+    def visualize_linearity(self) -> None:
         num_independent_vars = self.data_frame.shape[1]
         dependent_var_name = self.data_frame.columns[0]
         for i in range(1, num_independent_vars):
@@ -50,11 +50,13 @@ class RegressionInputAnalyzer:
             plt.ylabel(dependent_var_name)
             plt.show()
 
-    def calculate_statistics(self, variable_name, filter_string = None):
+    def calculate_statistics(self, variable_name: str, filter_string: str = None) -> dict:
         df = self.data_frame
         if filter_string is not None:
             df = df.query(filter_string)
-        return df[variable_name].describe()
+        stats = df[variable_name].describe().to_dict()
+        stats['median'] = df[variable_name].median()
+        return stats
 
 def main():
     # Parse command line args
@@ -80,7 +82,7 @@ def main():
         try:
             independent_vars = [float(x) for x in input(
                 "Enter independent variable values (ex: 1 1 1 1 1 1 1 1): ").split()]
-            print("Predicted price: ", regression.make_prediction(independent_vars))
+            print("Predicted price: ", regression.make_prediction([independent_vars]))
         except:
             print("invalid input")
 
