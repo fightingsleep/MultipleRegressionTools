@@ -11,6 +11,6 @@ The RegressionInputAnalyzer class allows you to visualize the linearity between 
 
 The RegressionOrchestrator is responsible for performing the actual regression. Simply initialize the model and then make predictions using the model. The user also has access to the intercept and coefficients that were calculated by the model. These parameters are solved using the ordinary least squares method. See https://en.wikipedia.org/wiki/Ordinary_least_squares for details.
 
+Here is a visual example of a regression result:
 
-
-
+![alt text](VisualizationExample.png)
