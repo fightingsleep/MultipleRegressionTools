@@ -13,4 +13,4 @@ The RegressionOrchestrator is responsible for performing the actual regression. 
 
 Here is a visual example of a regression result:
 
-![alt text](VisualizationExample.png)
+![VisualizationExample](./examples/VisualizationExample.png)

@@ -3,15 +3,13 @@ from collections import OrderedDict
 import pandas
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
-from sklearn import linear_model
+import sklearn.linear_model as lm
 
 class RegressionOrchestrator:
     """A simple class for performing multiple regression"""
     def __init__(self):
         self.data_frame = None
-        self.linear_regression = linear_model.LinearRegression()
+        self.linear_regression = lm.LinearRegression()
         self.model_params = OrderedDict()
 
     def initialize_model(self, path: str) -> None:
@@ -55,10 +53,10 @@ class RegressionOrchestrator:
             independent_var_name = self.data_frame.columns[1]
             # Scatter plot the data that was input by the user
             plt.scatter(self.data_frame[independent_var_name], self.data_frame[dependent_var_name])
-            min = int(self.data_frame[independent_var_name].min())
-            max = int(self.data_frame[independent_var_name].max())
-            height = int(self.data_frame[dependent_var_name].max())
-            x = np.linspace(min,max,height)
+            i_min = int(self.data_frame[independent_var_name].min())
+            i_max = int(self.data_frame[independent_var_name].max())
+            d_height = int(self.data_frame[dependent_var_name].max())
+            x = np.linspace(i_min,i_max,d_height)
             y = self.model_params[independent_var_name] * x + self.model_params['Intercept']
             # Plot the regression line through the scattered data
             plt.plot(x, y, color='red')
@@ -90,7 +88,7 @@ class RegressionOrchestrator:
             X,Y = np.meshgrid(np.linspace(min1,max1,height), np.linspace(min2,max2,height))
             Z = self.model_params['Intercept'] + self.model_params[first_independent_var_name] * X + self.model_params[second_independent_var_name] * Y
 
-            ax.plot_surface(X, Y, Z, cmap=cm.rainbow, alpha=0.75)
+            ax.plot_surface(X, Y, Z, cmap='rainbow', alpha=0.75)
             ax.set_title('{0} Vs {1} & {2}'.format(dependent_var_name, first_independent_var_name, second_independent_var_name), pad=20)
             ax.set_xlabel(first_independent_var_name,labelpad=20)
             ax.set_ylabel(second_independent_var_name,labelpad=20)
