@@ -1,7 +1,7 @@
 import unittest
 from multiple_regression_tools import multiple_regression as mr
 
-class TestLinearRegression(unittest.TestCase):
+class TestMultipleRegression(unittest.TestCase):
     def test_basic_prediction(self):
         regression = mr.RegressionOrchestrator()
         regression.initialize_model("./tests/data.csv")
