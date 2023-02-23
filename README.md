@@ -1,5 +1,5 @@
-# LinearRegressionTools
-This python module allows the user to easily perform linear regression
+# MultipleRegressionTools
+This python module allows the user to easily perform multiple regression
 
 It contains two main classes:
     - RegressionOrchestrator
