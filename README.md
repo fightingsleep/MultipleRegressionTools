@@ -5,7 +5,7 @@ It contains two main classes:
     - RegressionOrchestrator
     - RegressionInputAnalyzer
     
-Both of these classes take a path to a csv file. The file must be setup such that the first column contains the dependent variable values, and the remaining columns are independent variable values. The first row in each column represents the names of the variables. See the data.csv file for an example of the formatting.
+Both of these classes take a path to a csv file. The file must be setup such that the first column contains the dependent variable values, and the remaining columns are independent variable values. The first row in each column represents the names of the variables. See the [data.csv file](./tests/data.csv) for an example of the formatting.
 
 The RegressionInputAnalyzer class allows you to visualize the linearity between the dependent and independent variable values. It also allows you to obtain a set of statistics for a given variable.
 
