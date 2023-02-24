@@ -143,8 +143,9 @@ def main():
     regression.initialize_model(args.input)
     print(regression.get_model_parameters_string())
 
-    # Attempt to visualize the line/plane of best fit
-    regression.visualize_regression()
+    if args.v:
+        # Attempt to visualize the line/plane of best fit
+        regression.visualize_regression()
 
     # Allow the user to make a prediction using the model
     while True:
